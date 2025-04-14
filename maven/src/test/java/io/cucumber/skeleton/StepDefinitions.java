@@ -18,7 +18,6 @@ public class StepDefinitions {
     @Given("My belly is empty")
     public void myBellyIsEmpty() {
         belly.setBellyIsEmpty();
-
         assertThat(belly.isBellyIsEmpty()).isTrue();
         assertThat(belly.getCukes()).isEqualTo(0);
     }
@@ -32,7 +31,7 @@ public class StepDefinitions {
         assertThat(belly.getWaitingHour()).isEqualTo(0);
     }
 
-    @When("I wait {int} hour")
+    @When("I wait {int} hours")
     public void iWaitHour(int hour) {
         belly.timeToWait(hour);
         assertThat(belly.getWaitingHour()).isEqualTo(hour);
@@ -41,5 +40,10 @@ public class StepDefinitions {
     @Then("my belly should growl")
     public void myBellyShouldGrowl() {
         assertThat(belly.isGrowl()).isTrue();
+    }
+
+    @Then("my belly should not growl")
+    public void myBellyShouldNotGrowl() {
+        assertThat(belly.isGrowl()).isFalse();
     }
 }

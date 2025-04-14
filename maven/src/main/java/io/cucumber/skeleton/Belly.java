@@ -5,6 +5,11 @@ public class Belly {
     private boolean Growl;
     private boolean bellyIsEmpty;
     private int waitingHour;
+    private final int digestionTime;
+
+    public Belly() {
+        this.digestionTime = 1;
+    }
 
     public void eat(int cukes) {
         this.cukes += cukes;
@@ -21,7 +26,7 @@ public class Belly {
 
     public void timeToWait(int hour) {
         this.waitingHour += hour;
-        if (this.waitingHour >= 1) {
+        if (this.waitingHour >= digestionTime) {
             this.setBellyIsEmpty();
         }
     }
