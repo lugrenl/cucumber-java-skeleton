@@ -1,12 +1,45 @@
 package io.cucumber.skeleton;
 
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class StepDefinitions {
-    @Given("I have {int} cukes in my belly")
-    public void I_have_cukes_in_my_belly(int cukes) {
-        Belly belly = new Belly();
+    Belly belly;
+
+    @Before
+    public void setUp() {
+        this.belly = new Belly();
+    }
+
+    @Given("My belly is empty")
+    public void myBellyIsEmpty() {
+        belly.setBellyIsEmpty();
+
+        assertThat(belly.isBellyIsEmpty()).isTrue();
+        assertThat(belly.getCukes()).isEqualTo(0);
+    }
+
+    @Given("I eat {int} cukes")
+    public void I_eat_cukes(int cukes) {
         belly.eat(cukes);
+        assertThat(belly.getCukes()).isEqualTo(cukes);
+        assertThat(belly.isBellyIsEmpty()).isFalse();
+        assertThat(belly.isGrowl()).isFalse();
+        assertThat(belly.getWaitingHour()).isEqualTo(0);
+    }
+
+    @When("I wait {int} hour")
+    public void iWaitHour(int hour) {
+        belly.timeToWait(hour);
+        assertThat(belly.getWaitingHour()).isEqualTo(hour);
+    }
+
+    @Then("my belly should growl")
+    public void myBellyShouldGrowl() {
+        assertThat(belly.isGrowl()).isTrue();
     }
 }
